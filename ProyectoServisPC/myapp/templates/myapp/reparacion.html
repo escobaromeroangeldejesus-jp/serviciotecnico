@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block title %}Gestión de Reparaciones{% endblock %}
+{% block content %}
+    <div class="container mt-4" data-aos="fade-down">
+    <h1 class="text-center mb-4 animate__animated animate__swing animate__repeat-2">Gestión de Reparaciones</h1>
+    <p>Aquí puedes gestionar la información de tus reparaciones, incluyendo agregar nuevas reparaciones, editar detalles existentes y eliminar reparaciones que ya no sean necesarias.</p>
+        <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-info-subtle">
+            <h5 class="mb-0 text-primary">
+                <i class="bi bi-tools"></i>
+                Reparaciones registradas
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover table-striped align-middle mb-0">
+
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Técnico</th>
+                            <th>Diagnóstico</th>
+                            <th>Entrega</th>
+                            <th>Estado</th>
+                            <th>Soluciones</th>
+                            <th class="text-center">Acciones</th>
+                            <th>Opinión</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for reparacion in reparaciones %}
+
+                        <tr>
+
+                            <!-- Tecnico -->
+                            <td>
+                                {{ reparacion.tecnico }}
+                            </td>
+
+                            <!-- Diagnostico -->
+                            <td>
+                                {{ reparacion.diagnostico|default:"Sin diagnostico" }}
+                            </td>
+
+                            <!-- Fecha entrega-->
+                            <td>
+                                {{ reparacion.fecha_entrega|date:"d/m/Y" }}
+                            </td>
+
+                            <!-- Estado -->
+                            <td>
+
+                                {% if reparacion.estado == "ESPERA" %}
+
+                                    <span class="badge text-bg-warning">
+                                        <i class="bi bi-clock"></i>
+                                        En espera
+                                    </span>
+
+                                {% elif reparacion.estado == "REPARANDO" %}
+
+                                    <span class="badge text-bg-primary">
+                                        <i class="bi bi-tools"></i>
+                                        En reparación
+                                    </span>
+
+                                {% elif reparacion.estado == "FINALIZADO" %}
+
+                                    <span class="badge text-bg-success">
+                                        <i class="bi bi-check-circle"></i>
+                                        Finalizado
+                                    </span>
+
+                                {% elif reparacion.estado == "ENTREGADO" %}
+
+                                    <span class="badge text-bg-info">
+                                        <i class="bi bi-check-circle"></i>
+                                        Entregado
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge text-bg-secondary">
+                                        {{ reparacion.estado }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Solución -->
+                            <td class="text-muted">
+                                {{ reparacion.solucion|default:"Sin solución" }}
+                            </td>
+
+                            <!-- Acciones -->
+                            <td class="text-center text-nowrap">   
+                            <a href="{% url 'myapp:detalle_reparacion' reparacion.id %}"
+                            class="btn btn-sm btn-outline-primary"
+                            title="Ver reparacion">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="#NADAAUN"
+                                class="btn btn-sm btn-outline-warning"
+                                title="Editar reparación">
+                                    <i class="bi bi-pencil"></i>
+                            </a>
+                            </td>
+
+                            <td>
+                                {% if reparacion.estado == 'ENTREGADO' %}
+
+                                    {% if reparacion.opinion %}
+
+                                        <span class="badge bg-success">
+                                            Ya valorada
+                                        </span>
+
+                                    {% else %}
+
+                                        <a href="{% url 'myapp:crear_opinion' reparacion.id %}"
+                                        class="btn btn-warning btn-sm">
+                                            <i class="bi bi-star-fill"></i>
+                                            Valorar
+                                        </a>
+
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">No disponible</span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+
+                                <i class="bi bi-info-circle"></i>
+
+                                No hay reparaciones registradas.
+
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

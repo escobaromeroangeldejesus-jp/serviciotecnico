@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Gestión de Tecnicos{% endblock %}
+{% block content %}
+    <div class="container mt-4" data-aos="fade-down">
+    <h1 class="text-center mb-4 animate__animated animate__swing animate__repeat-2">Gestión de Tecnicos</h1>
+    <p>Aquí puedes gestionar la información de tus tecnicos, incluyendo agregar nuevos tecnicos, editar detalles existentes y eliminar tecnicos que ya no sean necesarios.</p>
+    <div class="row">
+        {% for tecnico in tecnicos %}
+        <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-down">
+            <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        {{ tecnico.apellido }} {{ tecnico.nombre }}
+                    </h5>
+                    <p class="card-text mb-1">
+                        <strong>Telefono:</strong> {{ tecnico.telefono }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Especialidad:</strong> {{ tecnico.especialidad }}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'myapp:detalle_tecnico' tecnico.id %}"
+                        class="btn btn-sm btn-primary"
+                        title="Detalles del Técnico">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="#NADAAUN" class="btn btn-warning btn-sm bi bi-pencil-square me-2"></a>
+                    <form action="#NADAAUN" method="POST" style="display:inline;" 
+                        onsubmit="return confirm('¿Seguro que deseas eliminar a {{ tecnico.nombre }} {{ tecnico.apellido }}?')">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm bi bi-trash3-fill"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted text-center">No hay tecnicos registrados.</p>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+* {
+    font-family: "Bitcount Single Ink", system-ui;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: linear-gradient(90deg, #250397, #1a0242);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer {
+    background: linear-gradient(90deg, #250397, #1a0242);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Exclusivo para la página de crear opinión y detalle_tecnico */
+.estrellas {
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.estrella {
+    margin: 0 4px;
+    transition: transform 0.15s;
+}
+.estrella:hover {
+    transform: scale(1.15);
+}
+.estrella.seleccionada {
+    color: #ffc107;
+}

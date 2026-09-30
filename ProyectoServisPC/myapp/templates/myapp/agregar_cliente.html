@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Agregar Cliente{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4 animate__animated animate__swing">Agregar Cliente</h1>
+    <p class="text-center mb-4">Completa el siguiente formulario para agregar un nuevo cliente a la base de datos.</p>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form action="{% url 'myapp:agregar_cliente' %}" method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Renderizar campos manualmente para aplicar Bootstrap -->
+                        <div class="mb-3">
+                            <label for="id_nombre" class="form-label">Nombres</label>
+                            {{ form.nombre|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_apellido" class="form-label">Apellido</label>
+                            {{ form.apellido|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_telefono" class="form-label">Telefono</label>
+                            {{ form.telefono|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_direccion" class="form-label">Dirección</label>
+                            {{ form.direccion|add_class:"form-control" }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}

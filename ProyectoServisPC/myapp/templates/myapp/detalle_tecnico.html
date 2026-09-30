@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Detalles del Técnico{% endblock %}
+{% block content %}
+    <div class="container mt-4" data-aos="fade-down">
+    <h1 class="text-center mb-4 animate__animated animate__swing animate__repeat-2">Detalles del Técnico</h1>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-down">
+            <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">
+                        {{ tecnico.apellido }} {{ tecnico.nombre }}
+                    </h4>
+                    <p class="card-text mb-1">
+                        <strong>Telefono:</strong> {{ tecnico.telefono }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Especialidad:</strong> {{ tecnico.especialidad }}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                <h5>Evaluación del técnico</h5> 
+                {% if promedio %} 
+                    <h3> ⭐ {{ promedio|floatformat:1 }} / 5 </h3> 
+                    <p> {{ cantidad }} opiniones </p> 
+                    <h5></h5>
+                {% else %} 
+                    <p class="text-muted"> Este técnico todavía no tiene opiniones. </p> 
+                {% endif %}
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Detalles de la Reparación{% endblock %}
+{% block content %}
+    <div class="container mt-4" data-aos="fade-down">
+    <h1 class="text-center mb-4 animate__animated animate__swing animate__repeat-2">Detalles de la Reparación</h1>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-down">
+            <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">
+                        {{ reparacion.id }} {{ reparacion.equipo }}
+                    </h4>
+                    <p class="card-text mb-1">
+                        <strong>Solución:</strong> {{ reparacion.solucion }}
+                    </p>
+                    <p class="card-text mb-1">
+                        <strong>Costo:</strong> ${{ reparacion.costo }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Especialidad:</strong> {{ reparacion.tecnico.especialidad }}
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    {% if reparacion.opinion %}
+
+                    <div class="card mt-4">
+
+                        <div class="card-header bg-warning-subtle">
+
+                            <h5 class="mb-0">
+                                <i class="bi bi-star-fill"></i>
+                                Opinión del cliente
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="fs-3">
+
+                                {% for i in "12345" %}
+
+                                    {% if forloop.counter <= reparacion.opinion.estrellas %}
+                                        ⭐
+                                    {% else %}
+                                        ☆
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </div>
+
+                            {% if reparacion.opinion.comentario %}
+
+                                <p class="mt-3 mb-0">
+                                    "{{ reparacion.opinion.comentario }}"
+                                </p>
+
+                            {% endif %}
+
+                            <small class="text-muted">
+                                {{ reparacion.opinion.fecha|date:"d/m/Y H:i" }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+    </div>
+{% endblock %}
